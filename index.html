@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smush Burgers</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <img src="images/logo.jpg" alt="Smush Burgers Logo" class="logo" />
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Welcome to Smush Burgers</h1>
+        <p>Taste the Smash. Feel the Rush.</p>
+      </section>
+
+      <section class="menu-section">
+        <div class="filters" id="filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="starters">Starters</button>
+          <button class="filter-btn" data-category="smush burgers">
+            Smush Burgers
+          </button>
+          <button class="filter-btn" data-category="chicken burgers">
+            Chicken Burgers
+          </button>
+          <button class="filter-btn" data-category="fries">Fries</button>
+          <button class="filter-btn" data-category="dessert">Dessert</button>
+          <button class="filter-btn" data-category="drinks">Drinks</button>
+          <button class="filter-btn" data-category="add ons">Add Ons</button>
+          <button class="filter-btn" data-category="dips">Dips</button>
+        </div>
+
+        <div class="menu-grid" id="menu-grid">
+          <!-- Menu items will be injected here by JS -->
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2025 Smush Burgers. All rights reserved.
+        <a href="https://mobitouch.online">Powered by MobiTouch.online</a>
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

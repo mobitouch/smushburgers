@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Smush Burgers</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Login Screen -->
+    <div id="login-view" class="view">
+      <div class="login-container">
+        <div class="login-box">
+          <h1>🍔 Smush Burgers Admin</h1>
+          <form id="login-form">
+            <input
+              type="password"
+              id="password-input"
+              placeholder="Enter password"
+              required
+            />
+            <button type="submit">Login</button>
+          </form>
+          <p id="login-error" class="error" style="display: none"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboard-view" class="view" style="display: none">
+      <div class="admin-container">
+        <header class="admin-header">
+          <h1>🍔 Smush Burgers Admin Panel</h1>
+          <a href="#" id="logout-btn" class="logout-btn">Logout</a>
+        </header>
+
+        <div id="success-message" class="success" style="display: none"></div>
+
+        <div class="content-wrapper">
+          <!-- Add/Edit Form -->
+          <div class="form-section">
+            <h2 id="form-title">Add New Item</h2>
+            <form id="item-form" class="item-form">
+              <input type="hidden" id="item-id" />
+
+              <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" id="item-name" required />
+              </div>
+
+              <div class="form-group">
+                <label>Category</label>
+                <select id="item-category" required>
+                  <option value="starters">Starters</option>
+                  <option value="smush burgers">Smush Burgers</option>
+                  <option value="chicken burgers">Chicken Burgers</option>
+                  <option value="fries">Fries</option>
+                  <option value="dessert">Dessert</option>
+                  <option value="drinks">Drinks</option>
+                  <option value="add ons">Add Ons</option>
+                  <option value="dips">Dips</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" id="item-price" step="0.5" required />
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="item-description" rows="3"></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary" id="submit-btn">
+                Add Item
+              </button>
+              <button
+                type="button"
+                class="btn-secondary"
+                id="cancel-btn"
+                style="display: none"
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+
+          <!-- Items List -->
+          <div class="list-section">
+            <h2>Menu Items (<span id="item-count">0</span>)</h2>
+            <div class="items-list" id="items-list">
+              <!-- Items will be injected here by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
