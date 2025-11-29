@@ -49,6 +49,13 @@
     "description": "Crispy Fried Chicken dipped in Buffalo, Coleslaw, Dill Pickles, Mayo Sauce, Potato Bun"
   },
   {
+    "id": 27,
+    "name": "Cheese Steak",
+    "category": "sandwiches",
+    "price": 12,
+    "description": "Rib Eye Beef, Grilled Fresh mushrooms, Grilled onions, Provolone Cheese, Mayo, Coups De lames Bread"
+  },
+  {
     "id": 8,
     "name": "Imported Fries",
     "category": "fries",
@@ -77,46 +84,18 @@
     "description": "Nutella Chocolate, Nestle, Banana, Brioche Bun"
   },
   {
-    "id": 13,
-    "name": "Sparkling Water",
-    "category": "drinks",
-    "price": 1.5,
-    "description": "Carbonated mineral water"
-  },
-  {
-    "id": 14,
-    "name": "Soft Drinks",
-    "category": "drinks",
-    "price": 1.5,
-    "description": "Coca-Cola, Fanta, Sprite"
-  },
-  {
-    "id": 15,
-    "name": "Ice Tea",
-    "category": "drinks",
-    "price": 1.5,
-    "description": "Peach, Peach Diet, Fruits"
-  },
-  {
-    "id": 16,
-    "name": "Beer",
-    "category": "drinks",
-    "price": 5,
-    "description": "Chilled beer"
-  },
-  {
     "id": 17,
     "name": "Cheese",
     "category": "add ons",
     "price": 1,
-    "description": "Extra slice of cheese"
+    "description": ""
   },
   {
     "id": 18,
     "name": "Bacon",
     "category": "add ons",
     "price": 1,
-    "description": "Crispy bacon strips"
+    "description": ""
   },
   {
     "id": 19,
@@ -175,10 +154,31 @@
     "description": ""
   },
   {
-    "id": 27,
-    "name": "Steak",
-    "category": "sandwiches",
-    "price": 12,
-    "description": "Rib Eye Beef, Grilled Fresh mushrooms, Grilled onions, Provolone Cheese, Mayo, Coups De lames Bread"
+    "id": 13,
+    "name": "Sparkling Water",
+    "category": "drinks",
+    "price": 1.5,
+    "description": "Carbonated mineral water"
+  },
+  {
+    "id": 14,
+    "name": "Soft Drinks",
+    "category": "drinks",
+    "price": 1.5,
+    "description": ""
+  },
+  {
+    "id": 15,
+    "name": "Ice Tea",
+    "category": "drinks",
+    "price": 1.5,
+    "description": "Peach, Peach Diet, Fruits"
+  },
+  {
+    "id": 16,
+    "name": "Beer",
+    "category": "drinks",
+    "price": 5,
+    "description": ""
   }
 ]
