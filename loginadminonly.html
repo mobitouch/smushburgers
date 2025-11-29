@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
     <title>Admin Panel - Smush Burgers</title>
     <link rel="stylesheet" href="admin.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="/images/logo.ico" sizes="32x32">
@@ -62,6 +63,7 @@
                   <option value="starters">Starters</option>
                   <option value="smush burgers">Smush Burgers</option>
                   <option value="chicken burgers">Chicken Burgers</option>
+                  <option value="sandwiches">Sandwiches</option>
                   <option value="fries">Fries</option>
                   <option value="dessert">Dessert</option>
                   <option value="drinks">Drinks</option>
@@ -72,7 +74,7 @@
 
               <div class="form-group">
                 <label>Price ($)</label>
-                <input type="number" id="item-price" step="0.5" required />
+                <input type="number" id="item-price" step="0.5" min="0" max="200" required />
               </div>
 
               <div class="form-group">

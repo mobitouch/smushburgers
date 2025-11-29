@@ -1,3 +1,19 @@
+/* ============================================
+   SMUSH BURGERS ADMIN PANEL - PRODUCTION CSS
+   ============================================ */
+
+:root {
+  --primary-color: #0d3b2e;
+  --secondary-color: #1a5c4a;
+  --text-color: #ffffff;
+  --accent-color: #e0e0e0;
+  --gold-color: #ffd700;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --transition-speed: 0.3s;
+  --font-heading: "Bebas Neue", sans-serif;
+  --font-body: "Roboto", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,13 +21,19 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  font-family: var(--font-heading);
+  background-color: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   min-height: 100vh;
-  color: #fff;
+  color: var(--text-color);
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
-/* Login Page */
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -21,21 +43,25 @@ body {
 }
 
 .login-box {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
   max-width: 400px;
   width: 100%;
 }
 
 .login-box h1 {
+  font-family: var(--font-heading);
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #ffd700;
+  color: var(--text-color);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .login-box input {
@@ -46,6 +72,7 @@ body {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
   font-size: 1rem;
+  font-family: var(--font-body);
   margin-bottom: 20px;
 }
 
@@ -55,28 +82,42 @@ body {
 
 .login-box button {
   width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #1a1a1a;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--text-color);
+  border-radius: 50px;
+  background: var(--text-color);
+  color: var(--primary-color);
+  font-family: var(--font-heading);
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 400;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all var(--transition-speed) ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .login-box button:hover {
+  background: transparent;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-.error {
+.login-box .error {
   color: #ff6b6b;
   margin-top: 15px;
   font-size: 0.9rem;
+  background: rgba(244, 67, 54, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(244, 67, 54, 0.4);
 }
 
-/* Admin Dashboard */
+/* ============================================
+   ADMIN DASHBOARD
+   ============================================ */
+
 .admin-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -88,43 +129,72 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 15px;
   margin-bottom: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .admin-header h1 {
-  color: #ffd700;
+  font-family: var(--font-heading);
+  color: var(--text-color);
   font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .logout-btn {
-  padding: 10px 25px;
-  background: rgba(255, 107, 107, 0.8);
-  color: white;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--text-color);
+  background: var(--text-color);
+  color: var(--primary-color);
   text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  border-radius: 50px;
+  transition: all var(--transition-speed) ease;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .logout-btn:hover {
-  background: rgba(255, 107, 107, 1);
+  background: transparent;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .success {
-  background: rgba(76, 175, 80, 0.8);
+  background: rgba(76, 175, 80, 0.9);
   color: white;
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
 
-/* Content Layout */
+.error {
+  background: rgba(244, 67, 54, 0.9);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
+/* ============================================
+   CONTENT LAYOUT
+   ============================================ */
+
 .content-wrapper {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -137,20 +207,29 @@ body {
   }
 }
 
-/* Form Section */
+/* ============================================
+   FORM SECTION
+   ============================================ */
+
 .form-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   height: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-section h2 {
-  color: #ffd700;
+  font-family: var(--font-heading);
+  color: var(--text-color);
   margin-bottom: 25px;
   font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .item-form {
@@ -166,13 +245,15 @@ body {
 }
 
 .form-group label {
+  font-family: var(--font-heading);
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .form-group input,
-.form-group select,
 .form-group textarea {
   padding: 12px;
   border: none;
@@ -180,7 +261,18 @@ body {
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   font-size: 1rem;
-  font-family: "Roboto", sans-serif;
+  font-family: var(--font-body);
+}
+
+.form-group select {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  cursor: pointer;
 }
 
 .form-group input::placeholder,
@@ -188,62 +280,87 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.form-group select {
-  cursor: pointer;
+.form-group select option {
+  background: #ffffff;
+  color: var(--primary-color);
 }
 
-.form-group select option {
-  background: #2d2d2d;
-  color: #fff;
-}
+/* ============================================
+   BUTTONS
+   ============================================ */
 
 .btn-primary {
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #1a1a1a;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--text-color);
+  border-radius: 50px;
+  background: var(--text-color);
+  color: var(--primary-color);
+  font-family: var(--font-heading);
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 400;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all var(--transition-speed) ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
+  background: transparent;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary {
   display: inline-block;
-  padding: 15px;
+  padding: 0.5rem 1.25rem;
   text-align: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  border: 2px solid var(--text-color);
+  border-radius: 50px;
+  background: var(--text-color);
+  color: var(--primary-color);
   text-decoration: none;
+  font-family: var(--font-heading);
   font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-weight: 400;
+  transition: all var(--transition-speed) ease;
   margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--text-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Items List Section */
+/* ============================================
+   ITEMS LIST SECTION
+   ============================================ */
+
 .list-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .list-section h2 {
-  color: #ffd700;
+  font-family: var(--font-heading);
+  color: var(--text-color);
   margin-bottom: 25px;
   font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .items-list {
@@ -265,29 +382,35 @@ body {
 }
 
 .items-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 215, 0, 0.5);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
 }
 
 .items-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 215, 0, 0.7);
+  background: rgba(255, 255, 255, 1);
 }
 
-/* Item Card */
+/* ============================================
+   ITEM CARDS
+   ============================================ */
+
 .item-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(26, 92, 74, 0.2);
   border-radius: 12px;
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .item-card:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(26, 92, 74, 0.3);
   transform: translateX(5px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .item-info {
@@ -295,33 +418,48 @@ body {
 }
 
 .item-info h3 {
-  color: #ffd700;
+  font-family: var(--font-heading);
+  color: var(--text-color);
   margin-bottom: 8px;
   font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .category-badge {
   display: inline-block;
   padding: 4px 12px;
-  background: rgba(255, 215, 0, 0.2);
-  color: #ffd700;
+  background: rgba(26, 92, 74, 0.3);
+  color: var(--text-color);
   border-radius: 20px;
+  font-family: var(--font-heading);
   font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   margin-bottom: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .item-description {
+  font-family: var(--font-body);
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
   margin: 8px 0;
   line-height: 1.4;
+  font-weight: 400;
 }
 
 .item-price {
-  color: #fff;
+  font-family: var(--font-heading);
+  color: var(--text-color);
   font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: 400;
+  letter-spacing: 1px;
   margin-top: 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .item-actions {
@@ -331,32 +469,42 @@ body {
 
 .btn-edit,
 .btn-delete {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--text-color);
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed) ease;
   text-decoration: none;
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-edit {
-  background: rgba(33, 150, 243, 0.8);
-  color: white;
+  background: var(--text-color);
+  color: var(--primary-color);
 }
 
-.btn-edit:hover {
-  background: rgba(33, 150, 243, 1);
+.btn-edit:hover,
+.btn-edit.active {
+  background: transparent;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .btn-delete {
-  background: rgba(244, 67, 54, 0.8);
-  color: white;
+  background: var(--text-color);
+  color: var(--primary-color);
 }
 
 .btn-delete:hover {
-  background: rgba(244, 67, 54, 1);
+  background: transparent;
+  color: var(--text-color);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }

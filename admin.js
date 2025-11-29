@@ -5,20 +5,44 @@
 let menuItems = [];
 let editingItemId = null;
 
-// Check authentication status on load
+// Format price - remove .00 for whole numbers, keep decimals for .5, .75, etc.
+function formatPrice(price) {
+  const numPrice = parseFloat(price);
+  if (isNaN(numPrice)) {
+    return "0";
+  }
+  // If it's a whole number, return without decimals
+  if (numPrice % 1 === 0) {
+    return numPrice.toString();
+  }
+  // Otherwise, show decimals (remove trailing zeros)
+  return numPrice.toString();
+}
+
 async function checkAuth() {
   try {
-    const response = await fetch("/api/auth/status");
+    const response = await fetch("/api/auth/status", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    });
+
+    if (!response.ok) {
+      showLogin();
+      return;
+    }
+
     const data = await response.json();
 
-    if (data.isAuthenticated) {
+    if (data && data.isAuthenticated === true) {
       showDashboard();
       loadMenuItems();
     } else {
       showLogin();
     }
   } catch (error) {
-    console.error("Auth check failed:", error);
     showLogin();
   }
 }
@@ -34,66 +58,46 @@ function showDashboard() {
 }
 
 // ============================================
-// AUTHENTICATION
-// ============================================
-
-document.getElementById("login-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const password = document.getElementById("password-input").value;
-  const errorElement = document.getElementById("login-error");
-
-  try {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      showDashboard();
-      loadMenuItems();
-      document.getElementById("password-input").value = "";
-    } else {
-      errorElement.textContent = data.message;
-      errorElement.style.display = "block";
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    errorElement.textContent = "Login failed. Please try again.";
-    errorElement.style.display = "block";
-  }
-});
-
-document.getElementById("logout-btn").addEventListener("click", async (e) => {
-  e.preventDefault();
-
-  try {
-    await fetch("/api/auth/logout", { method: "POST" });
-    showLogin();
-    menuItems = [];
-    editingItemId = null;
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
-});
-
-// ============================================
 // MENU CRUD OPERATIONS
 // ============================================
 
 async function loadMenuItems() {
   try {
-    const response = await fetch("/api/menu");
-    if (!response.ok) throw new Error("Failed to load menu items");
+    const response = await fetch("/api/menu", {
+      credentials: "include", // Ensure cookies are sent
+    });
+
+    // Handle different error status codes
+    if (!response.ok) {
+      if (response.status === 401) {
+        showMessage("Session expired. Please log in again.", "error");
+        showLogin();
+        return;
+      } else if (response.status === 500) {
+        const errorData = await response.json().catch(() => ({}));
+        showMessage("Server error. Please try again later.", "error");
+        return;
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        showMessage(
+          `Failed to load menu items (Status: ${response.status})`,
+          "error"
+        );
+        return;
+      }
+    }
 
     menuItems = await response.json();
     renderMenuItems();
   } catch (error) {
-    console.error("Error loading menu items:", error);
-    showMessage("Error loading menu items", "error");
+    if (error.message && error.message.includes("Failed to fetch")) {
+      showMessage(
+        "Cannot connect to server. Please ensure the server is running.",
+        "error"
+      );
+    } else {
+      showMessage("Error loading menu items. Please try again.", "error");
+    }
   }
 }
 
@@ -117,7 +121,7 @@ function renderMenuItems() {
                 <h3>${escapeHtml(item.name)}</h3>
                 <span class="category-badge">${escapeHtml(item.category)}</span>
                 <p class="item-description">${escapeHtml(item.description)}</p>
-                <p class="item-price">$${item.price.toFixed(2)}</p>
+                <p class="item-price">$${formatPrice(item.price)}</p>
             </div>
             <div class="item-actions">
                 <button class="btn-edit" onclick="editItem(${
@@ -133,50 +137,159 @@ function renderMenuItems() {
     .join("");
 }
 
-// Form submission (Add or Edit)
-document.getElementById("item-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+function initEventListeners() {
+  const loginForm = document.getElementById("login-form");
+  const logoutBtn = document.getElementById("logout-btn");
+  const itemForm = document.getElementById("item-form");
+  const cancelBtn = document.getElementById("cancel-btn");
 
-  const itemData = {
-    name: document.getElementById("item-name").value,
-    category: document.getElementById("item-category").value,
-    price: parseFloat(document.getElementById("item-price").value),
-    description: document.getElementById("item-description").value,
-  };
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-  try {
-    let response;
+      const password = document.getElementById("password-input").value;
+      const errorElement = document.getElementById("login-error");
 
-    if (editingItemId) {
-      // Update existing item
-      response = await fetch(`/api/menu/${editingItemId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(itemData),
-      });
-    } else {
-      // Add new item
-      response = await fetch("/api/menu", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(itemData),
-      });
-    }
+      errorElement.style.display = "none";
+      errorElement.textContent = "";
 
-    const data = await response.json();
+      try {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+          credentials: "include",
+        });
 
-    if (data.success) {
-      showMessage(data.message, "success");
-      loadMenuItems();
-      resetForm();
-    } else {
-      showMessage(data.message, "error");
-    }
-  } catch (error) {
-    console.error("Error saving item:", error);
-    showMessage("Failed to save item", "error");
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          if (response.status === 429) {
+            errorElement.textContent =
+              data.message || "Too many login attempts. Please try again later.";
+            errorElement.style.display = "block";
+            return;
+          } else if (response.status === 401) {
+            errorElement.textContent = data.message || "Incorrect password";
+            errorElement.style.display = "block";
+            return;
+          } else {
+            errorElement.textContent = data.message || "Login failed. Please try again.";
+            errorElement.style.display = "block";
+            return;
+          }
+        }
+
+        if (data.success) {
+          document.getElementById("password-input").value = "";
+          errorElement.style.display = "none";
+          
+          setTimeout(() => {
+            showDashboard();
+            loadMenuItems();
+          }, 100);
+        } else {
+          errorElement.textContent = data.message || "Incorrect password";
+          errorElement.style.display = "block";
+        }
+      } catch (error) {
+        if (error.message && error.message.includes("Failed to fetch")) {
+          errorElement.textContent =
+            "Cannot connect to server. Please ensure the server is running.";
+        } else {
+          errorElement.textContent = "Login failed. Please try again.";
+        }
+        errorElement.style.display = "block";
+      }
+    });
   }
-});
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      try {
+        await fetch("/api/auth/logout", {
+          method: "POST",
+          credentials: "include",
+        });
+        showLogin();
+        menuItems = [];
+        editingItemId = null;
+      } catch (error) {
+      }
+    });
+  }
+
+  if (itemForm) {
+    itemForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const itemData = {
+        name: document.getElementById("item-name").value,
+        category: document.getElementById("item-category").value,
+        price: parseFloat(document.getElementById("item-price").value),
+        description: document.getElementById("item-description").value,
+      };
+
+      try {
+        let response;
+
+        if (editingItemId) {
+          response = await fetch(`/api/menu/${editingItemId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(itemData),
+            credentials: "include",
+          });
+        } else {
+          response = await fetch("/api/menu", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(itemData),
+            credentials: "include",
+          });
+        }
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            showMessage("Session expired. Please log in again.", "error");
+            showLogin();
+            return;
+          } else if (response.status === 400) {
+            const errorData = await response.json().catch(() => ({}));
+            const errorMsg =
+              errorData.errors && errorData.errors.length > 0
+                ? errorData.errors.map((e) => e.msg).join(", ")
+                : errorData.message || "Validation failed";
+            showMessage(errorMsg, "error");
+            return;
+          }
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+          showMessage(data.message, "success");
+          loadMenuItems();
+          resetForm();
+        } else {
+          showMessage(data.message || "Failed to save item", "error");
+        }
+      } catch (error) {
+        if (error.message && error.message.includes("Failed to fetch")) {
+          showMessage("Cannot connect to server.", "error");
+        } else {
+          showMessage("Failed to save item. Please try again.", "error");
+        }
+      }
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", resetForm);
+  }
+}
 
 // Edit item
 function editItem(id) {
@@ -208,7 +321,16 @@ async function deleteItem(id) {
   try {
     const response = await fetch(`/api/menu/${id}`, {
       method: "DELETE",
+      credentials: "include", // Ensure cookies are sent
     });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        showMessage("Session expired. Please log in again.", "error");
+        showLogin();
+        return;
+      }
+    }
 
     const data = await response.json();
 
@@ -221,16 +343,16 @@ async function deleteItem(id) {
         resetForm();
       }
     } else {
-      showMessage(data.message, "error");
+      showMessage(data.message || "Failed to delete item", "error");
     }
   } catch (error) {
-    console.error("Error deleting item:", error);
-    showMessage("Failed to delete item", "error");
+    if (error.message && error.message.includes("Failed to fetch")) {
+      showMessage("Cannot connect to server.", "error");
+    } else {
+      showMessage("Failed to delete item. Please try again.", "error");
+    }
   }
 }
-
-// Cancel edit
-document.getElementById("cancel-btn").addEventListener("click", resetForm);
 
 function resetForm() {
   editingItemId = null;
@@ -268,4 +390,13 @@ function escapeHtml(text) {
 // INITIALIZE
 // ============================================
 
-checkAuth();
+function init() {
+  initEventListeners();
+  checkAuth();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}

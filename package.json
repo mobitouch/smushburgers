@@ -5,17 +5,29 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "cross-env NODE_ENV=development node server.js",
+    "prod": "cross-env NODE_ENV=production node server.js"
   },
   "keywords": [
     "admin",
     "menu",
-    "restaurant"
+    "restaurant",
+    "burger",
+    "food"
   ],
-  "author": "",
+  "author": "Smush Burgers",
   "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-session": "^1.17.3"
+    "express-rate-limit": "^7.1.5",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
