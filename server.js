@@ -171,6 +171,7 @@ const validateMenuItem = [
       "drinks",
       "add ons",
       "dips",
+      "Lent",
     ])
     .withMessage("Invalid category"),
   body("price")
@@ -222,7 +223,7 @@ app.post(
     if (password === ADMIN_PASSWORD) {
       req.session.isAuthenticated = true;
       req.session.touch();
-      
+
       req.session.save((err) => {
         if (err) {
           return res.status(500).json({ success: false, message: "Failed to save session" });
@@ -252,7 +253,7 @@ app.get("/api/auth/status", (req, res) => {
     return res.json({ isAuthenticated: false });
   }
   const isAuth = !!req.session.isAuthenticated;
-  res.json({ 
+  res.json({
     isAuthenticated: isAuth,
     sessionId: req.sessionID || null
   });
@@ -298,14 +299,14 @@ app.post(
     menuData.push(newItem);
 
     const writeSuccess = writeMenuData(menuData);
-    
+
     if (!writeSuccess) {
       return res.status(500).json({ success: false, message: "Failed to save item" });
     }
 
     const verifyData = readMenuData();
     const verifyItem = verifyData.find((item) => item.id === newItem.id);
-    
+
     if (!verifyItem) {
       return res.status(500).json({ success: false, message: "Save verification failed" });
     }
@@ -356,7 +357,7 @@ app.put(
 
     const verifyData = readMenuData();
     const verifyItem = verifyData.find((item) => item.id === itemId);
-    
+
     if (!verifyItem || verifyItem.name !== updatedItem.name) {
       return res
         .status(500)
@@ -397,7 +398,7 @@ app.delete(
 
     const verifyData = readMenuData();
     const verifyDeleted = verifyData.find((item) => item.id === itemId);
-    
+
     if (verifyDeleted) {
       return res
         .status(500)
