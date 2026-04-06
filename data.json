@@ -2,30 +2,16 @@
   {
     "id": 28,
     "name": "Mozzarella Sticks",
-    "category": "Lent",
+    "category": "starters",
     "price": 4.5,
     "description": "Served with Honey Mustard Sauce Dip(4 pcs)"
   },
   {
     "id": 29,
     "name": "Jalapeno Bites",
-    "category": "Lent",
+    "category": "starters",
     "price": 5,
     "description": "Served with Honey Mustard Sauce Dip(5 pcs)"
-  },
-  {
-    "id": 30,
-    "name": "Mozzarella Burger",
-    "category": "Lent",
-    "price": 4,
-    "description": "Mozzarella Patty, Tomato, Iceberg , Dill Pickles, Special Sauce, Potato Bun"
-  },
-  {
-    "id": 31,
-    "name": "Tuna Sandwich",
-    "category": "Lent",
-    "price": 5,
-    "description": "Tuna, Onions, Tomato, Iceberg, Cheddar Cheese, Pain De Mie"
   },
   {
     "id": 1,
